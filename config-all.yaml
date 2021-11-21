@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: podconfig-all
+  labels:
+    name: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.21.4
+    envFrom:
+      - configMapRef:
+          name: misvariables
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "250m"
+    ports:
+      - containerPort: 80

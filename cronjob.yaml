@@ -1,0 +1,19 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: cron
+spec:
+  concurrencyPolicy: Allow 
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: cron
+            image: busybox
+            args:
+              - /bin/sh
+              - -c
+              - echo Lanzando en el minuto `date +%r`
+            restartPolicy: OnFailure

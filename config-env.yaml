@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: podconfig-env
+  labels:
+    name: myapp
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.21.4
+    env:
+      - name: DOMINIO
+        valueFrom:
+          configMapKeyRef:
+            name: misvariables
+            key: dominio
+      - name: NOMBRE
+        valueFrom:
+          configMapKeyRef:
+            name: misvariables
+            key: nombre       
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "250m"
+    ports:
+      - containerPort: 80

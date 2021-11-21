@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: rs-rediscache
+  labels:
+    app: rediscache
+    tier: backend
+spec:
+  replicas: 3
+  selector:
+    matchExpressions:
+      - {key: app, operator: In, values: [rediscache, redis, rc]}
+  template:
+    metadata:
+      labels:
+        app: rediscache
+        tier: backend
+    spec:
+      containers:
+        - name: cache
+          image: redis:6
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          env:
+            - name: cliente
+              value: grupofloza
